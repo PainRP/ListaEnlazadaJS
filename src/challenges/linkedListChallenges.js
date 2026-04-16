@@ -19,13 +19,15 @@ function runSimpleChallenges() {
 
   console.log("Retos Lista Simple");
   console.log("Datos base:", list.toString());
-  runChallenge("countOccurrences('A') esperado=2", () => //Esta prueba estaba mal posicionada, donde estaba se probaba la función con números y ninguno se repetia
+  runChallenge("countOccurrences('A') esperado=2", () =>
     list.countOccurrences("A")
   );
-  runChallenge("removeDuplicates() en [A, B, A, C, B, D]", () =>
+  runChallenge("removeDuplicates() en [A, B, A, C, B, D]", () =>  //Esta prueba estaba mal posicionada, donde estaba se probaba la función con números y ninguno se repetia
     list.removeDuplicates()
   );
-  runChallenge("clean() esperado=6", () => list.clean());
+  runChallenge("clean() esperado=4", () => list.clean()); // al haber antes el duplicado ahora se espera borrar 4
+
+  list.addLast(10);
 
   list.addLast(2);
   list.addLast(4);
@@ -51,9 +53,8 @@ function runDoublyChallenges() {
   runChallenge("countOccurrences('v2') esperado=2", () =>
     list.countOccurrences("v2")
   );
-  runChallenge("clean() esperado=5", () => list.clean());
-
-  list.addLast(10);
+  runChallenge("removeDuplicates()", () => list.removeDuplicates()); // igual que el otro
+  runChallenge("clean() esperado=4", () => list.clean()); //Igual que el otro
   list.addLast(20);
   list.addLast(30);
   list.addLast(40);
@@ -61,7 +62,6 @@ function runDoublyChallenges() {
     list.reverseInPlace();
     return list.toForwardString();
   });
-  runChallenge("removeDuplicates()", () => list.removeDuplicates());
 }
 
 function runChallenge(title, action) {

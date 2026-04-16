@@ -75,25 +75,86 @@ class DoublyLinkedList {
   }
 
   countOccurrences(value) {
-    throw new Error(
-      "TODO RETO: Implementar countOccurrences(value) en DoublyLinkedList."
-    );
+   let count = 0;
+   let current = new DoublyNode;
+   current = this.head;
+   while(current != null){
+      if(this._isSameValue(current.value,value)){
+          count++;
+      }
+      current = current.next
+   }
+    return count
   }
 
   clean() {
-    throw new Error("TODO RETO: Implementar clean() en DoublyLinkedList.");
+    let removed = 0;
+        let current = this.head;
+
+        while (current != null) {
+            let next = current.next;
+            current.next = null;
+            current.previous = null;
+            current = next;
+            removed++;
+        }
+
+        this.head = null;
+        this.tail = null;
+        this._size = 0;
+        return removed;
   }
 
   reverseInPlace() {
-    throw new Error(
-      "TODO RETO: Implementar reverseInPlace() en DoublyLinkedList."
-    );
+   let temp = this.head;
+    	this.head=this.tail;
+    	this.tail = temp;
+    	let current = this.head;
+        
+        while(current != null) {
+        	temp = current.next;
+        	current.next = current.previous;
+        	current.previous= temp;
+        	
+        	current = current.next;
+        }    
   }
 
   removeDuplicates() {
-    throw new Error(
-      "TODO RETO: Implementar removeDuplicates() en DoublyLinkedList."
-    );
+    let removed = 0;
+        let current = this.head;
+        while (current != null) {
+            let runner = current.next;
+
+            while (runner != null) {
+                if (this._isSameValue(current.value, runner.value)) {
+                    
+                    let nodeToSkip = runner;
+                    let prevNode = nodeToSkip.previous;
+                    let nextNode = nodeToSkip.next;
+
+                    if (prevNode != null) {
+                        prevNode.next = nextNode;
+                    }
+
+                    if (nextNode != null) {
+                        nextNode.previous=prevNode;
+                    } else {
+                        this.tail = prevNode;
+                    }
+
+                    removed++;
+                    this._size--;
+
+                    runner = nextNode; 
+                } else {
+                    runner = runner.next;
+                }
+            }
+            current = current.next;
+        }
+
+        return removed;
   }
 
   size() {
